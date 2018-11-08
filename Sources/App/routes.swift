@@ -1,20 +1,34 @@
 import Vapor
 
+
+// Define Dish Object
+final class Dish :Content {
+
+    var title :String
+    var description : String
+    var course :String
+    var price :Double
+
+    init(title:String, description:String, course:String, price:Double) {
+
+        self.title = title
+        self.description = description
+        self.course = course
+        self.price = price
+
+    }
+}
+
+
+
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
-    // Basic "It works" example
-    router.get { req in
-        return "It works!"
-    }
-    
-    // Basic "Hello, world!" example
-    router.get("hello") { req in
-        return "Hello, world!"
+
+    router.get("dish") { req -> Dish in
+
+        let dish = Dish(title: "Meat balls", description: "This is description of meat ball dish", course: "Entrees", price: 8.50)
+
+        return dish
     }
 
-    // Example of configuring a controller
-    let todoController = TodoController()
-    router.get("todos", use: todoController.index)
-    router.post("todos", use: todoController.create)
-    router.delete("todos", Todo.parameter, use: todoController.delete)
 }
